@@ -30,7 +30,8 @@
   "devDependencies": {
     "n8n-core": "^1.14.1",
     "n8n-workflow": "^1.92.0",
-    "typescript": "^5.5.0"
+    "typescript": "^5.5.0",
+    "vitest": "^3.1.4"
   },
   "peerDependencies": {
     "n8n-nodes-base": "^1.14.1"
