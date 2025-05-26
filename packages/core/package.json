@@ -24,6 +24,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@n8n/n8n-nodes-langchain": "^0.3.0",
     "n8n-nodes-base": "^1.14.1",
     "nanoid": "^5.1.5"
   },
