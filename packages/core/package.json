@@ -1,0 +1,41 @@
+{
+  "name": "@n8n-compose/core",
+  "version": "0.1.0",
+  "description": "Typed DSL → n8n workflow JSON compiler",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18",
+    "bun": ">=1.0.0"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "bun build src/index.ts --watch",
+    "build": "bun build src/index.ts --outdir dist --splitting",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "n8n-nodes-base": "^1.14.1",
+    "nanoid": "^5.1.5"
+  },
+  "devDependencies": {
+    "n8n-core": "^1.14.1",
+    "n8n-workflow": "^1.92.0",
+    "typescript": "^5.5.0"
+  },
+  "peerDependencies": {
+    "n8n-nodes-base": "^1.14.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

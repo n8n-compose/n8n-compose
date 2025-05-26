@@ -1,0 +1,28 @@
+{
+  "name": "@n8n-compose/cli",
+  "version": "0.1.0",
+  "description": "Command-line interface for n8n-compose",
+  "license": "MIT",
+  "bin": {
+    "n8n-compose": "./dist/cli.js"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18",
+    "bun": ">=1.0.0"
+  },
+  "scripts": {
+    "build": "bunx tsup src/cli.ts --format cjs --minify --dts false",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@n8n-compose/core": "^0.1.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
