@@ -3,6 +3,8 @@ import type { NodeBase, WorkflowJson } from "./types";
 import { nanoid } from "nanoid";
 import { getLatestTypeVersion } from "./node-versioning";
 
+export { file } from "./files";
+
 export async function defineWorkflow<N extends readonly NodeBase[]>(
   wf: WorkflowJson<N>,
 ): Promise<IWorkflowBase> {

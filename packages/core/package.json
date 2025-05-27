@@ -13,9 +13,9 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.mjs"
     }
   },
   "scripts": {
@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@n8n/n8n-nodes-langchain": "^0.3.0",
+    "esbuild": "^0.25.5",
     "n8n-nodes-base": "^1.14.1",
     "nanoid": "^5.1.5"
   },

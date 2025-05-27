@@ -17,6 +17,14 @@ export async function defineWorkflow<N extends readonly NodeBase[]>(
 
 An example of how to use will follow.
 
+Also exposes `file` function, which allows you to provide either a javascript of a typescript file as `parameters` to a code cell.
+```ts
+export async function file(
+  filePath: string,
+  compilerOptions?: esbuild.BuildOptions,
+): Promise<{ jsCode: string }>
+```
+
 ## Installing from source
 
 Ensure you have [Bun](https://bun.sh) installed on your machine, and run 
