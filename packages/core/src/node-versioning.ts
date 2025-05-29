@@ -1,5 +1,5 @@
 import type { INodeTypeDescription } from "n8n-workflow";
-import { getAllKnownNodes } from "./nodes";
+import { getAllKnownNodes } from "./nodes.js";
 
 export async function getLatestTypeVersion(nodeType: string): Promise<number> {
   const allNodes = await getAllKnownNodes();

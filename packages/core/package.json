@@ -20,7 +20,10 @@
   },
   "scripts": {
     "dev": "bun build src/index.ts --watch",
-    "build": "bun build src/index.ts --outdir dist --splitting",
+    "build": "bun run clean && bun run build:es && bun run build:types && bun run copy:types",
+    "build:es": "bun build src/index.ts --outdir dist --splitting --target bun",
+    "build:types": "bun ../../node_modules/.bin/tsc --emitDeclarationOnly",
+    "copy:types": "cp -R src/**.d.ts dist",
     "clean": "rm -rf dist"
   },
   "dependencies": {

@@ -1,9 +1,11 @@
 import type { INode, IConnections, IWorkflowBase } from "n8n-workflow";
-import type { NodeBase, WorkflowJson } from "./types";
+import type { NodeBase, WorkflowJson } from "./types.d.ts";
 import { nanoid } from "nanoid";
-import { getLatestTypeVersion } from "./node-versioning";
+import { getLatestTypeVersion } from "./node-versioning.js";
 
-export { file } from "./files";
+export { file } from "./files.js";
+export { getAllKnownNodes } from "./nodes.js";
+export { getLatestTypeVersion } from "./node-versioning.js";
 
 export async function defineWorkflow<N extends readonly NodeBase[]>(
   wf: WorkflowJson<N>,

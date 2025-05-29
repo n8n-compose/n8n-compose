@@ -1,10 +1,10 @@
-import N8nNodesBase from "n8n-nodes-base/dist/known/nodes.json";
-import N8nLangChainNodes from "@n8n/n8n-nodes-langchain/dist/known/nodes.json";
+import N8nNodesBase from "n8n-nodes-base/dist/known/nodes.json" with { type: "json" };
+import N8nLangChainNodes from "@n8n/n8n-nodes-langchain/dist/known/nodes.json" with { type: "json" };
 
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 
-import type { N8nNodes } from "./types";
+import type { N8nNodes } from "./types.d.ts";
 
 const allKnownNodes: N8nNodes | undefined = undefined;
 

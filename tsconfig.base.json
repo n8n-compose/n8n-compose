@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "module": "nodenext",
+    "target": "esnext",
+    "moduleResolution": "NodeNext",
+    "resolveJsonModule": true,
+    "strict": true,
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "declaration": true,
+    "types": [
+      "bun-types" // add Bun global
+    ]
+  }
+}
