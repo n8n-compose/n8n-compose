@@ -1,10 +1,11 @@
 import N8nNodesBase from "n8n-nodes-base/dist/known/nodes.json" with { type: "json" };
 import N8nLangChainNodes from "@n8n/n8n-nodes-langchain/dist/known/nodes.json" with { type: "json" };
 
-import { dirname, join } from "node:path";
+import { resolve, join } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import type { N8nNodes } from "./types.d.ts";
+import { INodeTypeDescription } from "n8n-workflow";
 
 const allKnownNodes: N8nNodes | undefined = undefined;
 
@@ -30,8 +31,9 @@ export async function loadNodeDescription(
     sourcePath: string;
   },
   pkgDir: string,
-) {
-  const absPath = join(pkgDir, code.sourcePath);
+): Promise<INodeTypeDescription | undefined> {
+  const path = join("node_modules", pkgDir, code.sourcePath);
+  const absPath = resolve("../", "../", path);
   const modURL = pathToFileURL(absPath).href;
 
   const mod = await import(modURL);
