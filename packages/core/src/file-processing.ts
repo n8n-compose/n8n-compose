@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import type { IWorkflowBase } from "n8n-workflow";
-import { defineWorkflow, file } from "./index.js";
+import { defineWorkflow } from "./index.js";
+import { makePathAbsolute } from "./helpers.js";
 
 export function ensureWorkflowPattern(inputPath: string) {
   let pattern: string = inputPath;
@@ -40,8 +41,7 @@ export async function buildWorkflows(
    * */
   let files: string[] = [];
   const pattern = ensureWorkflowPattern(inputPath);
-
-  for await (const file of fs.glob(pattern)) {
+  for await (const file of fs.glob(pattern, {})) {
     files.push(file);
   }
   if (files.length === 0) {
@@ -74,11 +74,16 @@ export async function compileFile(
    * */
   console.log(`Compiling workflow file: ${file}`);
   let wf: IWorkflowBase;
-  if (file.endsWith(".ts") || file.endsWith(".js")) {
-    const mod = await import(file);
+  const filePath = makePathAbsolute(file);
+  if (!filePath) {
+    throw new Error(`File path is not valid: ${file}`);
+  }
+  console.log(`Compiling workflow file: ${filePath}`);
+  if (filePath.endsWith(".ts") || filePath.endsWith(".js")) {
+    const mod = await import(filePath);
     wf = await mod.default;
-  } else if (file.endsWith(".json")) {
-    const content = await fs.readFile(file, "utf-8");
+  } else if (filePath.endsWith(".json")) {
+    const content = await fs.readFile(filePath, "utf-8");
     const config = JSON.parse(content);
     wf = await defineWorkflow(config);
   } else {
