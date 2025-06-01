@@ -1,6 +1,5 @@
 import type { Argv } from "yargs";
 import { buildWorkflows } from "@n8n-compose/core";
-import { makePathAbsolute } from "../helpers";
 
 export const command = "build [entry]";
 export const describe = "Compile workflows to JSON";
@@ -55,9 +54,8 @@ export default {
         "No entry point specified. Please provide a file or directory to build.",
       );
     }
-    const absPath = makePathAbsolute(entry);
     await runBuild({
-      inputPath: absPath,
+      inputPath: entry as string,
       outDir: out as string,
       watch: (watch as boolean) ?? false,
     });

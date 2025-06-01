@@ -2,7 +2,6 @@ import type { Argv } from "yargs";
 import { diffLines } from "diff";
 import fs from "node:fs/promises";
 import { ensureWorkflowPattern, compileFile } from "@n8n-compose/core";
-import { makePathAbsolute } from "../helpers";
 
 export const command = "diff <filePath> [options]";
 export const describe =
@@ -25,11 +24,10 @@ export async function handler(argv: { filePath: string; outDir: string }) {
   if (!filePath) {
     throw new Error("Input file path is required.");
   }
-  const absPath = makePathAbsolute(filePath);
   console.log(
-    `Comparing generated JSON from ${absPath} to existing JSON files in ${outDir}`,
+    `Comparing generated JSON from ${filePath} to existing JSON files in ${outDir}`,
   );
-  const pattern = ensureWorkflowPattern(absPath);
+  const pattern = ensureWorkflowPattern(filePath);
   for await (const file of fs.glob(pattern, {})) {
     const newContent = await compileFile(file, outDir, false);
     const existingPath = `${outDir}/${newContent.name}.json`;
