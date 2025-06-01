@@ -29,6 +29,7 @@
   "dependencies": {
     "@n8n/n8n-nodes-langchain": "^0.3.0",
     "esbuild": "^0.25.5",
+    "ignore": "^7.0.5",
     "n8n-nodes-base": "^1.14.1",
     "nanoid": "^5.1.5"
   },
