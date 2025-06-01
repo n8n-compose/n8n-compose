@@ -1,4 +1,9 @@
-import type { INode, IConnections, IWorkflowBase } from "n8n-workflow";
+import type {
+  INode,
+  IConnections,
+  IWorkflowBase,
+  NodeConnectionType,
+} from "n8n-workflow";
 import type { NodeBase, WorkflowJson } from "./types.d.ts";
 import { nanoid } from "nanoid";
 import { getLatestTypeVersion } from "./node-versioning.js";
@@ -6,6 +11,8 @@ import { getLatestTypeVersion } from "./node-versioning.js";
 export { file } from "./files.js";
 export { getAllKnownNodes } from "./nodes.js";
 export { getLatestTypeVersion } from "./node-versioning.js";
+export { parseWorkflowJSON } from "./parse.js";
+export type { WorkflowJson } from "./types.d.ts";
 
 export async function defineWorkflow<N extends readonly NodeBase[]>(
   wf: WorkflowJson<N>,
@@ -49,7 +56,7 @@ export async function defineWorkflow<N extends readonly NodeBase[]>(
     const lane = conn[sourceIndex]!;
     lane.push({
       node: targetOpts.node,
-      type: targetOpts.type,
+      type: targetOpts.type as NodeConnectionType,
       index: targetOpts.index ?? 0,
     });
   });

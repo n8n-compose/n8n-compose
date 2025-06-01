@@ -8,18 +8,18 @@
     "node": ">=18",
     "bun": ">=1.0.0"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "require": "./dist/index.js",
+      "import": "./dist/index.js"
     }
   },
   "scripts": {
-    "dev": "bun build src/index.ts --watch",
+    "dev": "bun run build:es --watch",
     "build": "bun run clean && bun run build:es && bun run build:types && bun run copy:types",
     "build:es": "bun build src/index.ts --outdir dist --splitting --target bun",
     "build:types": "bun ../../node_modules/.bin/tsc --emitDeclarationOnly",

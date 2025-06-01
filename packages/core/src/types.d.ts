@@ -23,9 +23,11 @@ export interface NodeBase<Name extends string = string>
 
 type NodeName<N extends readonly NodeBase[]> = N[number]["name"];
 
+export type NodeConnectionTypeLiteral = `${NodeConnectionType}`;
+
 interface ConnectionOptions<N extends readonly NodeBase[]> {
   node: NodeName<N>;
-  type: NodeConnectionType;
+  type: NodeConnectionTypeLiteral;
   index?: number;
 }
 
