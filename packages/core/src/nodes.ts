@@ -36,12 +36,16 @@ export async function loadNodeDescription(
   const absPath = resolve("../", "../", path);
   const modURL = pathToFileURL(absPath).href;
 
-  const mod = await import(modURL);
+  try {
+    const mod = await import(modURL);
 
-  const NodeConstructor = mod[code.className] ?? mod.default;
-  const instance = new NodeConstructor();
+    const NodeConstructor = mod[code.className] ?? mod.default;
+    const instance = new NodeConstructor();
 
-  return instance.description;
+    return instance.description;
+  } catch (error) {
+    console.error(`Failed to load node description for ${code.className}: ${error}`);
+  }
 }
 
 export async function getNodeDescriptions(
