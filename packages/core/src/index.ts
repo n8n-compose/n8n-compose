@@ -11,6 +11,11 @@ import { getLatestTypeVersion } from "./node-versioning.js";
 export { file } from "./files.js";
 export { getAllKnownNodes } from "./nodes.js";
 export { getLatestTypeVersion } from "./node-versioning.js";
+export {
+  compileFile,
+  buildWorkflows,
+  ensureWorkflowPattern,
+} from "./file-processing.js";
 export { parseWorkflowJSON } from "./parse.js";
 export type { WorkflowJson } from "./types.d.ts";
 
