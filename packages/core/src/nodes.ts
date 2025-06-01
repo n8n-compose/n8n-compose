@@ -6,6 +6,7 @@ import { pathToFileURL } from "node:url";
 
 import type { N8nNodes } from "./types.d.ts";
 import { INodeTypeDescription } from "n8n-workflow";
+import { promiseQueue } from "./helpers.js";
 
 const allKnownNodes: N8nNodes | undefined = undefined;
 
@@ -58,9 +59,20 @@ export async function getNodeDescriptions(
   pkgDir: string,
 ) {
   const descriptions: N8nNodes = {};
-  Object.entries(nodes).map(async ([key, node]) => {
-    const fullKey = [pkgDir, key].join(".");
-    descriptions[fullKey] = await loadNodeDescription(node, pkgDir);
+  let promises: Promise<void>[] = [];
+  Object.entries(nodes).map(([key, node]) => {
+    const promise = async () => {
+      const fullKey = [pkgDir, key].join(".");
+      const description = await loadNodeDescription(node, pkgDir);
+      if (description) {
+        descriptions[fullKey] = description;
+      }
+    }
+    promises.push(promise());
   });
+  await promiseQueue(promises, 100);
+  console.log(
+    `Loaded ${Object.keys(descriptions).length} node descriptions from ${pkgDir}`,
+  );
   return descriptions;
 }
