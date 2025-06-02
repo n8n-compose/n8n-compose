@@ -1,6 +1,7 @@
 import type { Argv } from "yargs";
 import { diffLines } from "diff";
 import { glob } from "fast-glob";
+import fs from "node:fs/promises";
 import { ensureWorkflowPattern, compileFile } from "@n8n-compose/core";
 
 export const command = "diff <filePath> [options]";
@@ -31,7 +32,8 @@ export async function handler(argv: { filePath: string; outDir: string }) {
   for (const file of await glob(pattern)) {
     const newContent = await compileFile(file, outDir, false);
     const existingPath = `${outDir}/${newContent.name}.json`;
-    const json2 = JSON.parse(existingPath);
+    const existingContent = await fs.readFile(existingPath, "utf-8");
+    const json2 = JSON.parse(existingContent);
     printJsonDiff(newContent, json2);
   }
 }
