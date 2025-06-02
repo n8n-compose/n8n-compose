@@ -2,6 +2,7 @@ name: Publish to NPM
 
 on:
   release:
+    types: [published]
 
 jobs:
   test:
@@ -25,11 +26,16 @@ jobs:
       - name: Build project
         run: bun run build
 
+      - name: Package project
+        run: |
+          cd packages/core && bun pm pack --destination dist
+          cd ../cli && bun pm pack --destination dist
+
       - name: Test cli
         run: bun packages/cli/dist/cli.js --version
 
       - name: Publish cli to NPM
-        run: bun publish packages/cli
+        run: bun publish packages/cli/dist/*.tgz
         env:
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
@@ -42,6 +48,6 @@ jobs:
           });" | bun run -
 
       - name: Publish core to NPM
-        run: bun publish packages/core
+        run: bun publish packages/core/dist/*.tgz
         env:
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
