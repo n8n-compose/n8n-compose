@@ -1,6 +1,6 @@
 import type { Argv } from "yargs";
 import { diffLines } from "diff";
-import fs from "node:fs/promises";
+import { glob } from "fast-glob";
 import { ensureWorkflowPattern, compileFile } from "@n8n-compose/core";
 
 export const command = "diff <filePath> [options]";
@@ -28,7 +28,7 @@ export async function handler(argv: { filePath: string; outDir: string }) {
     `Comparing generated JSON from ${filePath} to existing JSON files in ${outDir}`,
   );
   const pattern = ensureWorkflowPattern(filePath);
-  for await (const file of fs.glob(pattern, {})) {
+  for (const file of await glob(pattern)) {
     const newContent = await compileFile(file, outDir, false);
     const existingPath = `${outDir}/${newContent.name}.json`;
     const json2 = JSON.parse(existingPath);

@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import type { IWorkflowBase } from "n8n-workflow";
 import { defineWorkflow } from "./index.js";
 import { makePathAbsolute } from "./helpers.js";
+import { glob } from "fast-glob";
 
 export function ensureWorkflowPattern(inputPath: string) {
   let pattern: string = inputPath;
@@ -41,7 +42,7 @@ export async function buildWorkflows(
    * */
   let files: string[] = [];
   const pattern = ensureWorkflowPattern(inputPath);
-  for await (const file of fs.glob(pattern, {})) {
+  for (const file of await glob(pattern)) {
     files.push(file);
   }
   if (files.length === 0) {
