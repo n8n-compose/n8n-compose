@@ -2,6 +2,22 @@
   "name": "@n8n-compose/core",
   "version": "0.1.0",
   "description": "Typed DSL → n8n workflow JSON compiler",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/n8n-compose/n8n-compose.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/n8n-compose/n8n-compose/issues"
+  },
+  "keywords": [
+    "n8n",
+    "workflow",
+    "dsl",
+    "compiler",
+    "automate",
+    "automation"
+  ],
   "license": "MIT",
   "type": "module",
   "engines": {
