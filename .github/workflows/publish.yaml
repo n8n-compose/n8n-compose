@@ -51,3 +51,33 @@ jobs:
         run: bun publish packages/core/dist/*.tgz
         env:
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
+  docs:
+    runs-on: ubuntu-latest
+    permissions: { contents: write }
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install -g typedoc typescript
+
+      - name: Setup UV
+        uses: astral-sh/setup-uv@v6
+
+      - name: Install dependencies
+        run: uv pip install --system mkdocs-material mkdocs-typedoc mike
+
+      - name: Build & version docs
+        env:
+          VERSION: ${{ github.ref_name }}
+        run: |
+          mike deploy "$VERSION" latest --push
+          mike set-default latest --push

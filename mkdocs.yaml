@@ -1,0 +1,23 @@
+site_name: n8n-compose Docs
+theme:
+  name: material
+
+plugins:
+  - search
+  - typedoc:
+      source: packages/core/src/*.ts
+      output_dir: core/api
+      tsconfig: packages/core/tsconfig.json
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Installation: installation.md
+  - Core library:
+      - Overview: core/index.md
+      - Usage: core/usage.md
+      - API reference: core/api/  # typedoc plugin fills this at build time
+  - CLI tool:
+      - Overview: cli/index.md
+  - Contributing: contributing.md
+  - Development: development.md

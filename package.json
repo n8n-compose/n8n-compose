@@ -1,14 +1,14 @@
 {
   "name": "n8n-compose-monorepo",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "changeset": "bunx @changesets/cli",
     "test": "bunx vitest",
     "lint": "bunx eslint . --max-warnings 0",
     "typecheck": "bunx tsc -b --pretty",
     "build": "(cd packages/core && bun run build) && (cd packages/cli && bun run build)"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
