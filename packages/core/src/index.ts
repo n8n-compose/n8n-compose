@@ -19,6 +19,17 @@ export {
 export { parseWorkflowJSON } from "./parse.js";
 export type { WorkflowJson } from "./types.d.ts";
 
+/**
+ * Takes a workflow configuration in the n8n-compose format (see WorkflowJson)
+ * and converts it into an n8n workflow definition.
+ * This is the format that n8n expects when importing workflows.
+ * It generates unique IDs for nodes and sets default values for optional properties.
+ * Also ensures that the type version of each node is set to the latest version
+ * (unless one is explicitly given).
+ *
+ * @param wf - The workflow JSON object to convert.
+ * @returns A promise that resolves to an IWorkflowBase object - basically an n8n workflow definition.
+ * */
 export async function defineWorkflow<N extends readonly NodeBase[]>(
   wf: WorkflowJson<N>,
 ): Promise<IWorkflowBase> {

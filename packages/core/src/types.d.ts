@@ -12,7 +12,11 @@ import type {
   NodeConnectionType,
 } from "n8n-workflow";
 
-// We omit and redefine as optional properties that we can generate at build time
+/**
+ * A base interface for nodes in n8n-compose.
+ * It extends the INode interface from n8n-workflow, but omits and redefines
+ * as optional properties that we can generate at build time
+ * */
 export interface NodeBase<Name extends string = string>
   extends Omit<INode, "id" | "parameters" | "typeVersion"> {
   name: Name;
@@ -31,6 +35,11 @@ interface ConnectionOptions<N extends readonly NodeBase[]> {
   index?: number;
 }
 
+/**
+ * Represents a connection between two nodes in a workflow.
+ * Instead of the n8n workflow connection format, we represent connections
+ * as a tuple of two ConnectionOptions.
+ * */
 type Connection<N extends readonly NodeBase[]> = readonly [
   ConnectionOptions<N>,
   ConnectionOptions<N>,
@@ -38,6 +47,12 @@ type Connection<N extends readonly NodeBase[]> = readonly [
 
 type Connections<N extends readonly NodeBase[]> = readonly Connection<N>[];
 
+/**
+ * Our WorkflowJson interface represents a workflow in n8n-compose.
+ * THe main difference to the n8n workflow interface is the different
+ * representation of connections. We also make more properties optional
+ * to make workflow definitions less verbose.
+ * */
 export interface WorkflowJson<N extends readonly NodeBase[]> {
   name: string;
   nodes: N;
