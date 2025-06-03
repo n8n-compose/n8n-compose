@@ -24,22 +24,22 @@ export function builder(y: Argv) {
     });
 }
 
+/**
+ * Builds a workflow from the specified input path.
+ * The path can be either a single workflow file, a directory containing multiple workflow files, or a glob pattern.
+ * If the input path is a directory, it recursively lists all files.
+ * The built workflow is saved in the specified output directory.
+ * If the watch option is enabled, it will watch for changes in the input files.
+ *
+ * @param inputPath - Path to a single workflow file or a directory containing multiple workflow files.
+ * @param outDir - The directory where the built workflow will be saved.
+ * @param watch - Whether to watch for changes in the input files.
+ * */
 export async function runBuild(opts: {
   inputPath: string;
   outDir: string;
   watch: boolean;
 }): Promise<void> {
-  /**
-   * Builds a workflow from the specified input path.
-   * The path can be either a single workflow file, a directory containing multiple workflow files, or a glob pattern.
-   * If the input path is a directory, it recursively lists all files.
-   * The built workflow is saved in the specified output directory.
-   * If the watch option is enabled, it will watch for changes in the input files.
-   *
-   * @param inputPath - Path to a single workflow file or a directory containing multiple workflow files.
-   * @param outDir - The directory where the built workflow will be saved.
-   * @param watch - Whether to watch for changes in the input files.
-   */
   buildWorkflows(opts.inputPath, opts.outDir, opts.watch);
 }
 

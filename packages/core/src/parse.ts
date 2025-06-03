@@ -11,16 +11,16 @@ type ConnectionMutable<N extends readonly NodeBase[]> = [
   ConnectionOptions<N>,
 ];
 
+/**
+ * Converts a workflow JSON exported from n8n into an n8n-compose configuration.
+ *
+ * @param wf - The workflow JSON object to convert.
+ * @return A promise that resolves to a WorkflowJson object compatible with n8n-compose.
+ * @throws {Error} If the workflow is not valid or cannot be converted.
+ * */
 export async function parseWorkflowJSON(
   wf: IWorkflowBase,
 ): Promise<WorkflowJson<NodeBase[]>> {
-  /**
-   * Converts a workflow JSON exported from n8n into an n8n-compose configuration.
-   *
-   * @param wf - The workflow JSON object to convert.
-   * @return A promise that resolves to a WorkflowJson object compatible with n8n-compose.
-   * @throws {Error} If the workflow is not valid or cannot be converted.
-   */
   const nodes: NodeBase[] = wf.nodes;
   const conns: ConnectionMutable<NodeBase[]>[] = [];
 

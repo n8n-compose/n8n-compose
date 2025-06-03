@@ -22,24 +22,24 @@ export function ensureWorkflowPattern(inputPath: string) {
   return pattern;
 }
 
+/** This function builds workflows from the specified input path.
+ * It supports both single files and directories containing workflow files.
+ * If the input path is a directory, it recursively lists all files.
+ * The built workflows are saved in the specified output directory.
+ * If the watch option is enabled, it will watch for changes in the input files.
+ *
+ * @param inputPath - Definition of the inputs. Can be a path to a single workflow file,
+ *  a directory containing multiple workflow files, or a glob pattern.
+ * @param outDir - The directory where the built workflows will be saved.
+ * @param watch - Whether to watch for changes in the input files.
+ * @returns A promise that resolves when the workflows are built.
+ * @throws {Error} If no workflow files are found in the input path.
+ * */
 export async function buildWorkflows(
   inputPath: string,
   outDir: string,
   watch: boolean,
 ) {
-  /*  * This function builds workflows from the specified input path.
-   * It supports both single files and directories containing workflow files.
-   * If the input path is a directory, it recursively lists all files.
-   * The built workflows are saved in the specified output directory.
-   * If the watch option is enabled, it will watch for changes in the input files.
-   *
-   * @param inputPath - Definition of the inputs. Can be a path to a single workflow file,
-   *  a directory containing multiple workflow files, or a glob pattern.
-   * @param outDir - The directory where the built workflows will be saved.
-   * @param watch - Whether to watch for changes in the input files.
-   * @returns A promise that resolves when the workflows are built.
-   * @throws {Error} If no workflow files are found in the input path.
-   * */
   let files: string[] = [];
   const pattern = ensureWorkflowPattern(inputPath);
   for (const file of await glob(pattern)) {
@@ -56,23 +56,23 @@ export async function buildWorkflows(
   });
 }
 
+/** Compiles a single workflow file from the specified path.
+ * Supports TypeScript, JavaScript, and JSON files.
+ * If the file is TypeScript or JavaScript, it imports the module and executes the default export,
+ * which should be a function that returns a workflow definition, i.e. defineWorkflow.
+ * If the file is JSON, it reads the content and calls defineWorkflow on it.
+ * If the write option is enabled, also saves the compiled workflow to the specified output directory.
+ * @param file - The path to the workflow file to compile.
+ * @param outDir - The directory where the compiled workflow will be saved.
+ * @param write - Whether to write the compiled workflow to the output directory. Defaults to true.
+ * @returns A promise that resolves to the compiled workflow.
+ * @throws {Error} If the file type is unsupported.
+ * */
 export async function compileFile(
   file: string,
   outDir?: string,
   write: boolean = true,
 ): Promise<IWorkflowBase> {
-  /* Compiles a single workflow file from the specified path.
-   * Supports TypeScript, JavaScript, and JSON files.
-   * If the file is TypeScript or JavaScript, it imports the module and executes the default export,
-   * which should be a function that returns a workflow definition, i.e. defineWorkflow.
-   * If the file is JSON, it reads the content and calls defineWorkflow on it.
-   * If the write option is enabled, also saves the compiled workflow to the specified output directory.
-   * @param file - The path to the workflow file to compile.
-   * @param outDir - The directory where the compiled workflow will be saved.
-   * @param write - Whether to write the compiled workflow to the output directory. Defaults to true.
-   * @returns A promise that resolves to the compiled workflow.
-   * @throws {Error} If the file type is unsupported.
-   * */
   console.log(`Compiling workflow file: ${file}`);
   let wf: IWorkflowBase;
   const filePath = makePathAbsolute(file);

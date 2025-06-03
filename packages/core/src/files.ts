@@ -2,19 +2,19 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import * as esbuild from "esbuild";
 
+/**
+ * Loads a file and returns its content as JavaScript code.
+ * If the file is a TypeScript file, it will be bundled using esbuild.
+ *
+ * @param filePath - The path to the file to load.
+ * @param compilerOptions - Optional esbuild build options to customize the bundling process.
+ * @returns An object containing the JavaScript code as a string.
+ * @throws Will throw an error if the file cannot be read or bundled.
+ * */
 export async function file(
   filePath: string,
   compilerOptions?: esbuild.BuildOptions,
 ): Promise<{ jsCode: string }> {
-  /**
-  Loads a file and returns its content as JavaScript code.
-  If the file is a TypeScript file, it will be bundled using esbuild.
-
-  @param filePath - The path to the file to load.
-  @param compilerOptions - Optional esbuild build options to customize the bundling process.
-  @returns An object containing the JavaScript code as a string.
-  @throws Will throw an error if the file cannot be read or bundled.
-  */
   console.log(`Loading file: ${filePath}...`);
   const ts = filePath.endsWith(".ts");
   const path = resolve(filePath);
