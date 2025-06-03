@@ -19,7 +19,6 @@ import { defineWorkflow, file } from '@n8n-compose/core';
 
 export default defineWorkflow({
     ...,
-
     {
       parameters: {
         file("./actions/run.ts")
