@@ -71,3 +71,14 @@ export interface WorkflowJson<N extends readonly NodeBase[]> {
 export interface N8nNodes {
   [nodeType: string]: INodeTypeDescription;
 }
+
+export interface N8nNodesCache {
+  meta: {
+    generatedAt: string;
+    packages: {
+      // packageName: version
+      [packageName: string]: string;
+    };
+  };
+  nodes: N8nNodes;
+}
